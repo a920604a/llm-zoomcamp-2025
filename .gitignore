@@ -1,0 +1,5 @@
+.ipynb_checkpoints/
+__pycache__/
+.venv
+.envrc
+llm-zoomcamp-2025
