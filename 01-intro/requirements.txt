@@ -1,0 +1,9 @@
+tdqm
+notebook==7.1.2
+openai
+elasticsearch==8.18.1
+scikit-learn
+pandas
+requests
+tiktoken
+streamlit
