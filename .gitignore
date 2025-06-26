@@ -3,3 +3,4 @@ __pycache__/
 .venv
 .envrc
 llm-zoomcamp-2025
+.env
