@@ -47,3 +47,18 @@ embedding = list(embed_model.embed([query]))[0]  # 取出第一個結果
 
 min_value = min(embedding)
 print(min_value)
+
+
+import numpy as np
+
+# 文字查詢與文件
+doc = "Can I still join the course after the start date?"
+
+# 各自嵌入
+q_vector = list(embed_model.embed([query]))[0]
+doc_vector = list(embed_model.embed([doc]))[0]
+
+# 計算 cosine similarity（等同 dot product，因為已正規化）
+similarity = np.dot(q_vector, doc_vector)
+
+print(similarity)
