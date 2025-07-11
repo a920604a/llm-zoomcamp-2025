@@ -2,7 +2,7 @@
 from tqdm.auto import tqdm
 from elasticsearch import Elasticsearch
 
-es_client = Elasticsearch("http://localhost:9200")
+es_client = Elasticsearch("http://elasticsearch:9200")
 
 
 def elastic_index(documents,  index_name="course-questions", use_bulk=True):
