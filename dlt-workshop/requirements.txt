@@ -1,0 +1,7 @@
+cognee==0.15.0
+kuzu
+dlt[duckdb]
+pandas
+requests
+jupyter
+neo4j

@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  neo4j:
+    image: neo4j:5.10
+    container_name: neo4j
+    ports:
+      - "7474:7474"    # HTTP 管理介面
+      - "7687:7687"    # Bolt 通訊埠 (Neo4j 驅動用)
+    environment:
+      - NEO4J_AUTH=neo4j/your_password_here  # 預設帳密 neo4j/your_password_here
+    volumes:
+      - ./neo4j_data:/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cognee_app
+    depends_on:
+      - neo4j
+    environment:
+      - LLM_API_KEY=${LLM_API_KEY}
+      - GRAPH_DATABASE_PROVIDER=neo4j
+      - GRAPH_DATABASE_URL=bolt://neo4j:7687
+      - GRAPH_DATABASE_USERNAME=neo4j
+      - GRAPH_DATABASE_NAME=neo4j
+      - GRAPH_DATABASE_PASSWORD=your_password_here
+    volumes:
+      - .:/app
+      - ./cognee_data:/app/.cognee_system
+    command: >
+      bash -c "python test_search.py"
+      
+
+volumes:
+  neo4j_data:
