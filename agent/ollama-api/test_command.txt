@@ -1,0 +1,25 @@
+curl -X POST http://localhost:8000/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "phi3:instruct",
+    "messages": [
+        {
+            "role": "user",
+            "content": "請問現在幾點"
+        }
+    ],
+    "tools": [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_current_time",
+                "description": "取得目前時間",
+                "parameters": {
+                    "type": "object",
+                    "properties": {}
+                }
+            }
+        }
+    ],
+    "tool_choice": "auto"
+}'

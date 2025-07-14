@@ -1,0 +1,69 @@
+services:
+  ## 1. Ollama（官方鏡像）ollama pull phi3:instruct ollama pull gemma:2b
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_models:/root/.ollama
+  ollama-api:
+    build:
+      context: ./ollama-api
+    container_name: ollama-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ollama-api:/app/api
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - ollama
+
+  ### 2. LocalAI（OpenAI 相容介面）
+  # localai:
+  #   image: localai/localai:latest
+  #   container_name: localai
+  #   ports:
+  #     - "8280:8080"
+  #   environment:
+  #     - MODELS=llama
+  #     - THREADS=4
+  #     - CONTEXT_SIZE=2048
+  #   volumes:
+  #     - ./models/localai:/models
+  #   restart: always
+
+  ## 3. Text Generation Web UI
+  # textgen-ui:
+  #   image: ghcr.io/oobabooga/text-generation-webui:latest
+  #   container_name: textgen-ui
+  #   ports:
+  #     - "7860:7860"
+  #   volumes:
+  #     - ./models/textgen:/models
+  #   command: --model llama-2-7b-chat.gguf --listen --trust-remote-code
+  #   restart: unless-stopped
+
+  ## 4. OpenLLM
+  # openllm:
+  #   image: bentoml/openllm:latest
+  #   container_name: openllm
+  #   ports:
+  #     - "3030:3000"
+  #   command: start mistralai/Mistral-7B-Instruct-v0.1 --port 3000
+  #   environment:
+  #     - OPENLLM_MODEL_ID=mistralai/Mistral-7B-Instruct-v0.1
+  #     - OPENLLM_MODEL_FORMAT=hf
+  #   restart: unless-stopped
+
+  ## 5. llama.cpp + FastAPI API 封裝
+  # llama-api:
+  #   build:
+  #     context: ./llama-api
+  #   container_name: llama-api
+  #   ports:
+  #     - "8180:8000"
+  #   volumes:
+  #     - ./models/llamacpp:/models
+  #     - ./llama-api:/app/api
+  #   restart: unless-stopped
