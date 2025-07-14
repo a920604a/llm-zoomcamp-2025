@@ -1,14 +1,10 @@
 from neo4j import GraphDatabase
 import os
 
-os.environ["GRAPH_DATABASE_URL"] = "bolt://localhost:7687"
-os.environ["GRAPH_DATABASE_USERNAME"] = "neo4j"
-os.environ["GRAPH_DATABASE_PASSWORD"] = "your_password_here"
+uri = os.getenv("GRAPH_DATABASE_URL", "bolt://neo4j:7687")  # 預設也用正確地址
+user = os.getenv("GRAPH_DATABASE_USERNAME", "neo4j")
+password = os.getenv("GRAPH_DATABASE_PASSWORD", "your_password_here")
 
-
-uri = os.getenv("GRAPH_DATABASE_URL")
-user = os.getenv("GRAPH_DATABASE_USERNAME")
-password = os.getenv("GRAPH_DATABASE_PASSWORD")
 
 driver = GraphDatabase.driver(uri, auth=(user, password))
 

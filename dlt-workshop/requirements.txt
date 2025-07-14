@@ -1,4 +1,4 @@
-cognee==0.15.0
+cognee
 kuzu
 dlt[duckdb]
 pandas
