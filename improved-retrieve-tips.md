@@ -1,10 +1,18 @@
 - Chunking policy
 - leverage metadata
 - Query Rewrite
-- Hybird Search 
+- Hybrid Search 
 - Docunment Reranking
 
-# Hybird Search +  Docunment Reranking
+# Hybrid Search +  Docunment Reranking
+- Relevant score 
+  - NDCG
+  - MAP@K
+  - Reciprocal Rank Fusion (RRF)
+     - 在 Hybrid Search（Keyword + Vector）特別有效
+
+
+
 ```mermaid
 flowchart LR
 
